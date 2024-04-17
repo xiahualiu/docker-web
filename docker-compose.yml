@@ -1,0 +1,28 @@
+services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro   # Nginx conf folder
+      - ./nginx/log/:/var/log/nginx:rw        # Log folder
+      - ./certbot/www/:/var/www/certbot/:ro   # Certbot challenge folder
+      - ./certbot/conf/:/etc/letsencrypt/:ro  # Certbot folder
+    networks:
+      - local-net
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw   # Certbot challenge folder
+      - ./certbot/conf/:/etc/letsencrypt/:rw  # Certbot etc folder
+  jenkins:
+    image: jenkins/jenkins:lts
+    user: root
+    volumes:
+      - ./jenkins/config/:/var/jenkins_home:rw # Jenkins config folder
+    networks:
+      - local-net
+
+networks:
+  local-net:
