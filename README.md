@@ -17,15 +17,15 @@ And with the docker compose file, it is easier to redeploy the same services on 
 
 ## Requirements
 
-* A domain name. (mine is fredrice.us)
+* A **domain** name. (mine is fredrice.us)
 
 Only with a domain name you can get the SSL certificate and harden your website.
 
-* Docker Compose version > 3.0.
+* **Docker Compose** version > 3.0.
 
 Docker compose needs to be highier than 3.0 version.
 
-* WireGuard VPN
+* **WireGuard VPN**
 
 The Jenkins server is hosted behind the WireGuard VPN for security reason. In order be able to access the Jenkins control website, the user must first use WireGuard VPN to connect to the internal `wg0` interface on the server.
 
@@ -33,4 +33,19 @@ The example WireGuard server and client configuration can be found under the `wi
 
 * Firewall allows port 80, 443, and of course, your SSH port. (You don't need to enable the WireGuard port system wide, as it is included in the `PostUp` section of the WireGuard configuration file)
 
-There are different firewall applications, `iptables` and `ufw`, etc. Make sure the new firewall rules are persist, otherwise you will lose them after a reboot, for `iptables` you will need `iptables-persistent`.
+There are different firewall applications for Linux distributions such as `iptables` and `ufw`, etc. Make sure the new firewall rules are persist, otherwise you will lose them after a reboot, for `iptables` you will need `iptables-persistent`.
+
+## Folder Structure
+
+* `blog` folder contains the the zola blog site.
+* `nginx` folder contains the log and configuration files for the Nginx service.
+* `wireguard` folder contains server/client configuration samples.
+* `zola` folder contains the Dockerfile for building the zola container.
+
+## Running Services
+
+Run
+
+```bash
+docker compose up webserver
+```
