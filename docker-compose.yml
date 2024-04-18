@@ -11,6 +11,7 @@ services:
       - ./nginx/log/:/var/log/nginx:rw        # Log folder
       - ./certbot/www/:/var/www/certbot/:ro   # Certbot challenge folder
       - ./certbot/conf/:/etc/letsencrypt/:ro  # Certbot folder
+      - ../blog/public/:/var/www/public:ro    # Zola site public folder
     networks:
       - local-net
     depends_on:
@@ -34,10 +35,14 @@ services:
     networks:
       - local-net
 
-  # Hugo service
-  hugo:
-    image: hugo/hugo
-    build: ./hugo
+  # Zola service
+  zola:
+    image: zola:custom
+    build: ./zola
+    user: 1002:1002
+    entrypoint: /usr/bin/zola
+    volumes:
+      - ../blog:/blog # Mount blog into the container
 
 networks:
   local-net:
