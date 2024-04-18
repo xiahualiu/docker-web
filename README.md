@@ -5,6 +5,7 @@ My docker compose project for my Oracle Ampere A1 instance.
 It contains several docker containers:
 
 * [Nginx](https://nginx.org/) container, for serving website content such as Jenkins and blog.
+* [Certbot](https://certbot.eff.org/) container, for obtaining and renewing website SSL certificates.
 * [Jenkins](https://www.jenkins.io/) container, CI of other projects.
 * [Zola](https://www.getzola.org/) container, my blog site generator.
 
@@ -16,14 +17,20 @@ And with the docker compose file, it is easier to redeploy the same services on 
 
 ## Requirements
 
+* A domain name. (mine is fredrice.us)
+
+Only with a domain name you can get the SSL certificate and harden your website.
+
 * Docker Compose version > 3.0.
 
 Docker compose needs to be highier than 3.0 version.
 
 * WireGuard VPN
 
-The Jenkins server is hosted behind the WireGuard VPN for security reason. In order be able to access the Jenkins control website, the user must first use WireGuard VPN to connect to the interal `wg0` interface on the server.
+The Jenkins server is hosted behind the WireGuard VPN for security reason. In order be able to access the Jenkins control website, the user must first use WireGuard VPN to connect to the internal `wg0` interface on the server.
 
 The example WireGuard server and client configuration can be found under the `wireguard` folder. Because WireGuard takes advantages of the kernel module, it is better to have it installed directly on the bare metal OS.
 
-* Firewall allows port 80, 443, and the WireGuard UDP port.
+* Firewall allows port 80, 443, and of course, your SSH port. (You don't need to enable the WireGuard port system wide, as it is included in the `PostUp` section of the WireGuard configuration file)
+
+There are different firewall applications, `iptables` and `ufw`, etc. Make sure the new firewall rules are persist, otherwise you will lose them after a reboot, for `iptables` you will need `iptables-persistent`.
