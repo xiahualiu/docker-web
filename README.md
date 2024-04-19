@@ -55,6 +55,7 @@ To build the blog static site:
 
 ```bash
 docker compose run zola build
+docker compose restart webserver
 ```
 
 To renew the SSL certificate:

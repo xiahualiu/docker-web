@@ -39,7 +39,6 @@ services:
   zola:
     image: zola:custom
     build: ./zola
-    user: 1002:1002 # Change to home user
     entrypoint: /usr/bin/zola
     volumes:
       - ./blog:/blog # Mount blog into the container
