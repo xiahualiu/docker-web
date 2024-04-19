@@ -17,7 +17,7 @@ Explore my blog posts on a variety of topics:
 
 Browse our posts by tags:
 
-- [Docker](./tags/docker_tag)
+- [Docker](./tags/docker)
 
 ## My Links
 
