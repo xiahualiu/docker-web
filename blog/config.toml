@@ -42,7 +42,7 @@ internal_level = "warn"
 
 [extra]
 author = "Xiahua Liu"
-display_author = true
+display_author = false
 
 favicon = "favicon.ico"
 image = ""

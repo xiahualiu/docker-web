@@ -44,8 +44,21 @@ There are different firewall applications for Linux distributions such as `iptab
 
 ## Running Services
 
-Run
+To start/stop the webserver & Jenkins server:
 
 ```bash
-docker compose up webserver
+docker compose up webserver # --detach
+docker compose down
+```
+
+To build the blog static site:
+
+```bash
+docker compose run zola build
+```
+
+To renew the SSL certificate:
+
+```bash
+docker compose run certbot renew
 ```

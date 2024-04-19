@@ -3,46 +3,26 @@
 
 ## Overview
 
-anemone theme is designed to provide a nearly no-JavaScript, efficient, and minimalist experience for your website. Embracing simplicity, the theme focuses on content and readability, ensuring a seamless user experience without unnecessary distractions.
-
-> *"Useless blockquote"*
+This is a personal blog website focusing on learning.
 
 ## Blog Posts
 
-Explore our insightful blog posts on a variety of topics:
+Explore my blog posts on a variety of topics:
 
-- 🥣 [Overview Post](./blog/overview-post)
-- 🥣 [Overview Post But in French](./fr/blog/overview-post)
-- 🈚 [Language Tests](./blog/language-tests)
-- 🔥 [Very Very Very Long Title And Very Very Very Short Content](./blog/very-very-very-long-title-and-very-very-very-short-content)
-- 📺 [Post Example With Headings And TOC](./blog/post-example-with-headings-and-toc)
+- [Set up Let's Encrypt (Certbot) and Nginx in Docker Containers](./blog/2024-04-18-nginx-certbot-docker.md)
+- [Set up Jenkins and Nginx Reverse Proxy in Docker Containers](./blog/2024-04-18-nginx-jenkins-reverse-proxy.md)
+- [Make Jenkins Accessible Only through WireGuard VPN](./blog/2024-04-18-nginx-jenkins-reverse-proxy.md)
 
 ## Tags
 
 Browse our posts by tags:
 
-- [example](./tags/example)
+- [Docker](./tags/docker_tag.md)
 
-## Another List
+## My Links
 
-Discover additional content:
+Stay connected with me:
 
-- With Subitems
-  - With Subsubitems
-  - [Example Page](./about)
-- this list is just the content of `content/_index.md`, the tests are shamelessly stolen from [no style, please!](https://www.getzola.org/themes/no-style-please/)
-
-## Online Presence
-
-Stay connected with us:
-
-- Email: [jgll6dij6@mozmail.com](mailto:jgll6dij6@mozmail.com)
-- Code Repositories: [Speyll@GitHub](https://github.com/Speyll)
-- @Speyll anywhere else.
-
-## Webrings
-
-Join our webrings and explore more:
-
-- 🈯 {{ webring(prev="#", webring="#", webringName="Random Webring", next="#") }}
-- 🎶 {{ webring(prev="#", webring="#", webringName="Another Webring", next="#") }}
+- Email: [liuxiafa@gmail.com](mailto:liuxiafa@gmail.com)
+- Code Repositories: [xiahualiu@GitHub](https://github.com/xiahualiu)
+- LinkedIn: [Xiahua Liu](https://www.linkedin.com/in/xiahualiu/)
