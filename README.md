@@ -35,6 +35,8 @@ The example WireGuard server and client configuration can be found under the `wi
 
 There are different firewall applications for Linux distributions such as `iptables` and `ufw`, etc. Make sure the new firewall rules are persist, otherwise you will lose them after a reboot, for `iptables` you will need `iptables-persistent`.
 
+Most cloud providers, such as Google Cloud Platform, AWS, Oracle Cloud, have extra firewall settings which are often part of the cloud **"Virtual Networks"** configuration. You should also change the firewall settings there to enable these ports.
+
 ## Folder Structure
 
 * `blog` folder contains the the zola blog site.
