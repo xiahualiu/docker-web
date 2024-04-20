@@ -249,7 +249,7 @@ You can also find my Nginx configuration [here](https://github.com/xiahualiu/doc
 
 ## Postscripts
 
-You should **NOT** enable Cloudflare DNS proxy for all domains during this whole process, and if you should disable it as well **BEFORE** you renew your SSL certificates in the future if needed.
+You should **NOT** enable Cloudflare DNS proxy for all domains during this whole process, and you should disable it as well **BEFORE** you renew your SSL certificates in the future if needed.
 
 You can, however, enable Cloudflare DNS proxy after you set HTTPS to enable CDN service from Cloudflare, but you need to choose **FULL** in the *SSL/TLS->Overview* tab.
 
