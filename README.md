@@ -63,3 +63,5 @@ To renew the SSL certificate:
 ```bash
 docker compose run certbot renew
 ```
+
+Disable any type of DNS proxy service before you run the renew command, if you are using CDN services such as Cloudflare.
