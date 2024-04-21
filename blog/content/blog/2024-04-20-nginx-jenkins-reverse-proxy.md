@@ -113,11 +113,13 @@ docker compose restart webserver
 
 ## Postscripts
 
-For most user cases, it is **NOT** recommended to have Jenkins directly exposed on the public internet. Since Jenkins has been found to have a list of security vulnerabilities in the history. Although Jenkins developpers can fix those security vulnerabilities swiftly, there will always be a time window for the bad actors to exploit those 0-day vulnerabilities[^2].
+For most user cases, it is **NOT** recommended to have Jenkins directly exposed on the public internet. Since Jenkins has been found to have a list of security vulnerabilities in the history. 
 
-Instead, Jenkins web page is usually hosted behind some kind of VPN. Only users who can access the VPN network can visit Jenkins web page. This method provides strong protection to Jenkins, since most VPN uses very advanced encryption and authentication algorithms and can effectively block out the non authorized users.
+Although Jenkins developpers can fix those security vulnerabilities swiftly, there will always be a time window for the bad actors to exploit those 0-day vulnerabilities[^2].
 
-In my setup, my Jenkins web page is hosted behind the WireGuard VPN, you can read my post [Make Jenkins Accessible Only through WireGuard VPN](/blog/protect-jenkins) to know more about it.
+Instead, Jenkins web page is usually hosted behind a VPN. Only users who can access the VPN network can visit Jenkins web page. This method provides strong protection to Jenkins, since most VPN uses very advanced encryption and authentication algorithms to block out the non authorized users.
+
+In my project's setup, my Jenkins web page is hosted behind the WireGuard VPN, you can read my post [Make Jenkins Accessible Only through WireGuard VPN](/blog/protect-jenkins) to know more about it.
 
 
 [^1]: Reference from [Docker Compose Networking](https://docs.docker.com/compose/networking/) from [docks.docker.com](https://docs.docker.com/).
