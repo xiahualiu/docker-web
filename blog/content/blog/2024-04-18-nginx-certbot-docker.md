@@ -13,9 +13,9 @@ This post shows how to get Let's Encrypt SSL certificates for your self-hosted w
 * You have ssh access to your server's command line.
 * You have at least one active domain name, and the DNS records for all domain names are set correctly.
 
-For example, if you brought `google.com` TLD (Top Level Domain), you need to set up these DNS A/AAAA records on DNS providers, such as `blog.google.com`, `www.google.com`, `google.com`, `jenkins.google.com` to the correct destination IPs. This is required for certbot to issue SSL cert. If you don't have TLD, a subdomain name is OK as well, but a subdomain is less secure than TLD.
+For example, if you brought `google.com` TLD (Top Level Domain), you need to set up these DNS A/AAAA records on DNS providers, such as `blog.google.com`, `www.google.com`, `google.com`, `jenkins.google.com` to the correct destination IPs. This is required for certbot to issue SSL cert. If you don't have a TLD, a subdomain name is OK as well, but less secure.
 
-If you are using Cloudflare DNS service, make sure you have disabled the DNS Proxy, and all records are shown as **DNS only - reserved IP** under the *Proxy status* column.
+If you are using Cloudflare DNS service, make sure you have disabled the DNS Proxy - all records are shown as **DNS only - reserved IP** under the *Proxy status* column.
 
 ## Writing Docker Compose
 
@@ -48,9 +48,9 @@ services:
 
 Run `docker compose up webserver` to see if there is anything wrong with the nginx container.
 
-Note you cannot access the default Nginx index page as normal now, because the default nginx configuration files are not in the container, due to the first `./nginx/conf/:/etc/nginx/conf.d/:ro` volume mounting instruction. Since your `./nginx/conf` folder is empty, the nginx conf folder inside the container is empty as well.
+Note you cannot access the default Nginx index page yet, because the default nginx configuration files are not in the container, due to the first `./nginx/conf/:/etc/nginx/conf.d/:ro` volume mounting instruction. Since your `./nginx/conf` folder is empty, the nginx conf folder inside the container is empty as well.
 
-However, it is easy to test even without the default page. Let's create a simple configuration file in the `./nginx/conf` path, let's assume `./nginx/conf/app.conf`.
+Let's create a simple configuration file in the `./nginx/conf` path, let's assume `./nginx/conf/app.conf`.
 
 ```nginx
 server {
@@ -78,7 +78,7 @@ Run `docker compose up webserver` or `docker compose restart webserver`. And inp
 ### Troubleshooting
 
 #### Firewall issues
-If you didn't see the 403 page, or it shows there is no connection, this usually indicates some firewall issues, if you are using cloud providers such as Google Cloud Platform, AWS, Oracle Cloud, make sure you have enabled the `80` and `443` ports in the Virtual Cloud Network section and also enable `80` and `443` on your instance, depending on what firewall application you have on your instance, it may be `iptables`:
+If you didn't see the 403 page, or it shows there is no connection to the host, this usually indicates some firewall issues. If you are using cloud providers such as Google Cloud Platform, AWS, Oracle Cloud, make sure you have enabled the `80` and `443` ports in the Virtual Network section on the control panel; also you need to enable `80` and `443` in OS, depending on the firewall application you have, it may be `iptables`:
 
 First check if `iptables` already allows 80 and 443:
 
@@ -123,6 +123,8 @@ Also, Windows PowerShell has a nice command `Resolve-DnsName` you can use to tes
 Resolve-DnsName <sub.domain1> # sub.domain2, etc.
 ```
 
+If the output IP addresses are not correct, you need to re-visit the DNS provider and make sure all DNS records are good. Note changes to DNS records can take up to 24 hours to synchronize across different regions.
+
 ## Run Certbot
 
 After you can see the correct Nginx page, you are halfway there!
@@ -133,7 +135,7 @@ The `certbot` container can issue and renew SSL certificates for your sites now.
 docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d <sub.domain1>,<sub.domain2>,...
 ```
 
-There will be several questions such as your email address, accept TOS, etc. Answer all of them then, wait for `certbot` finish.
+There will be several questions popped up, such as your email address, accept TOS, etc. Answer all of them then, wait for `certbot` finish.
 
 If there are no errors, you can then remove the `--dry-run` parameter and run again:
 
@@ -141,7 +143,7 @@ If there are no errors, you can then remove the `--dry-run` parameter and run ag
 docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d <sub.domain1>,<sub.domain2>,...
 ```
 
-The output SSL pem files will be in `./certbot/conf/live/<sub.domain1>` folder, there will only be **ONE** set of certificates for all of your domains.
+The output SSL pem files will be in `./certbot/conf/live/<sub.domain1>` folder, there will only be **ONE** set of certificates for all of your domain names.
 
 ### Renew SSL certificates
 
@@ -155,9 +157,7 @@ docker-compose run --rm certbot renew
 
 This is because the `certbot` `--nginx` actually queries and modifies the nginx configuration files, and because nginx is in another container, `certbot` has no idea where `nginx` is and will return error.
 
-Although there are other ways to work around and make `--nginx` working, I highly recommend using `certonly` here and only getting the SSL certificates from Let's Encrypt CA. 
-
-Then write your own HTTPS configurations later on. This gives you better control over your sites.
+Although there are other ways to work around and make `--nginx` option work, I highly recommend using `certonly` here and only getting the SSL certificates from Let's Encrypt CA. Write your own HTTPS configurations later on. This gives you better control over your sites.
 
 ## Update Nginx HTTPS Configuration
 
@@ -229,21 +229,21 @@ server {
 }
 ```
 
-If you don't have the site ready yet, you can use the same `403` error code in the HTTP section in your HTTPS section and modify the `location` field later.
+If you don't have the site ready yet, you can use the same `403` error code as the HTTP section and modify the `location` field later.
 
-And then restart Nginx container by:
+Then restart Nginx container by:
 
 ```bash
 docker compose restart webserver
 ```
 
-Try accessing your site now, and see if it has the SSL certificate in your browser!
+Try accessing your site now, see if it is secure in your browser!
 
 ## Make it More Secure
 
-So far you have deployed the SSL certificate to your self-hosted site, but you can still make it better. There are many SSL hardening articles online you can referring to add more security such as disabling unsafe ciphers, etc.
+You can still make it better. There are many SSL hardening articles online, such as disabling unsafe ciphers, etc.
 
-You can test your site at [immuniweb](https://www.immuniweb.com/ssl/) to test any vulnerabilities and use corresponding Nginx configurations to eliminate them.
+You can test your site at [immuniweb](https://www.immuniweb.com/ssl/) to find any vulnerabilities and use corresponding Nginx configurations to eliminate them.
 
 You can also find my Nginx configuration [here](https://github.com/xiahualiu/docker-nginx-jenkins-zola/blob/main/nginx/conf/app.conf) for this blog site if you need any references as well.
 
@@ -251,5 +251,5 @@ You can also find my Nginx configuration [here](https://github.com/xiahualiu/doc
 
 You should **NOT** enable Cloudflare DNS proxy for all domains during this whole process, and you should disable it as well **BEFORE** you renew your SSL certificates in the future if needed.
 
-You can, however, enable Cloudflare DNS proxy after you set HTTPS to enable CDN service from Cloudflare, but you need to choose **FULL** in the *SSL/TLS->Overview* tab.
+You can, however, enable Cloudflare DNS proxy after you set HTTPS to enable CDN service from Cloudflare, but you need to choose the **FULL** architecture in the *SSL/TLS->Overview* tab, or you will see "too many redirects" error when open your website in browsers.
 
