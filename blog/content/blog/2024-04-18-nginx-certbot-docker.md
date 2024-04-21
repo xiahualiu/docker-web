@@ -243,7 +243,7 @@ Try accessing your site now, and see if it has the SSL certificate in your brows
 
 So far you have deployed the SSL certificate to your self-hosted site, but you can still make it better. There are many SSL hardening articles online you can referring to add more security such as disabling unsafe ciphers, etc.
 
-You can test your site at https://www.immuniweb.com/ssl/ to test any vulnerabilities and use corresponding Nginx configurations to eliminate them.
+You can test your site at [immuniweb](https://www.immuniweb.com/ssl/) to test any vulnerabilities and use corresponding Nginx configurations to eliminate them.
 
 You can also find my Nginx configuration [here](https://github.com/xiahualiu/docker-nginx-jenkins-zola/blob/main/nginx/conf/app.conf) for this blog site if you need any references as well.
 
