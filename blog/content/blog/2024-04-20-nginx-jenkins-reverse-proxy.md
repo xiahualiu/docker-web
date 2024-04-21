@@ -10,7 +10,7 @@ This post shows how to set up Jenkins in docker, then use the Nginx container to
 
 ## Requirements
 
-* You have configured your Nginx container and it is able to show HTTP or HTTPS content when tested on your browser. You can check my previous post [Set up Let's Encrypt (Certbot) and Nginx in Docker Containers](./nginx-certbot-docker) to setup Nginx and HTTPS.
+* You have configured your Nginx container and it is able to show HTTP or HTTPS content when tested on your browser. You can check my previous post [Set up Let's Encrypt (Certbot) and Nginx in Docker Containers](/blog/nginx-certbot-docker) to setup Nginx and HTTPS.
 * The Nginx container and the Jenkins container are **on the same computer**.
 
 ## Docker Compose YAML
@@ -117,7 +117,7 @@ For most user cases, it is **NOT** recommended to have Jenkins directly exposed 
 
 Instead, Jenkins web page is usually hosted behind some kind of VPN. Only users who can access the VPN network can visit Jenkins web page. This method provides strong protection to Jenkins, since most VPN uses very advanced encryption and authentication algorithms and can effectively block out the non authorized users.
 
-In my setup, my Jenkins web page is hosted behind the WireGuard VPN, you can read my post [Make Jenkins Accessible Only through WireGuard VPN](./protect-jenkins) to know more about it.
+In my setup, my Jenkins web page is hosted behind the WireGuard VPN, you can read my post [Make Jenkins Accessible Only through WireGuard VPN](/blog/protect-jenkins) to know more about it.
 
 
 [^1]: Reference from [Docker Compose Networking](https://docs.docker.com/compose/networking/) from [docks.docker.com](https://docs.docker.com/).
