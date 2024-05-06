@@ -64,21 +64,21 @@ server {
         root /var/www/certbot;
     }
 
-    # Test connectivity with 403
+    # Test connectivity with 404
     location / {
-        return 403;
+        return 404;
     }
 }
 ```
 (Replace `<sub.domain1>`,etc. with your real domain names)
 
-Run `docker compose up webserver` or `docker compose restart webserver`. And input `http://<sub.domain1>`, `http://<sub.domain2>`, etc. in your browser to see if you received 403 error messages. (Sometimes the browser will ask if you want to proceed with accessing insecure sites. You need to choose yes, otherwise you won't be able to see 403 messages.)
+Run `docker compose up webserver` or `docker compose restart webserver`. And input `http://<sub.domain1>`, `http://<sub.domain2>`, etc. in your browser to see if you received 404 error messages. (Sometimes the browser will ask if you want to proceed with accessing insecure sites. You need to choose yes, otherwise you won't be able to see 404 messages.)
 
 
 ### Troubleshooting
 
 #### Firewall issues
-If you didn't see the 403 page, or it shows there is no connection to the host, this usually indicates some firewall issues. If you are using cloud providers such as Google Cloud Platform, AWS, Oracle Cloud, make sure you have enabled the `80` and `443` ports in the Virtual Network section on the control panel; also you need to enable `80` and `443` in OS, depending on the firewall application you have, it may be `iptables`:
+If you didn't see the 404 page, or it shows there is no connection to the host, this usually indicates some firewall issues. If you are using cloud providers such as Google Cloud Platform, AWS, Oracle Cloud, make sure you have enabled the `80` and `443` ports in the Virtual Network section on the control panel; also you need to enable `80` and `443` in OS, depending on the firewall application you have, it may be `iptables`:
 
 First check if `iptables` already allows 80 and 443:
 
@@ -132,7 +132,7 @@ After you can see the correct Nginx page, you are halfway there!
 The `certbot` container can issue and renew SSL certificates for your sites now. First let's do a dry run:
 
 ```bash
-docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d <sub.domain1>,<sub.domain2>,...
+docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d <sub.domain1>,<sub.domain2>,...
 ```
 
 There will be several questions popped up, such as your email address, accept TOS, etc. Answer all of them then, wait for `certbot` finish.
@@ -140,10 +140,14 @@ There will be several questions popped up, such as your email address, accept TO
 If there are no errors, you can then remove the `--dry-run` parameter and run again:
 
 ```bash
-docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d <sub.domain1>,<sub.domain2>,...
+docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d <sub.domain1>,<sub.domain2>,...
 ```
 
-The output SSL pem files will be in `./certbot/conf/live/<sub.domain1>` folder, there will only be **ONE** set of certificates for all of your domain names.
+The output SSL pem files will be in `./certbot/conf/live/<sub.domain1>` folder, there will only be **ONE** set of certificates for all of your domain names. You need to change the owner of the `./certbot` folder otherwise docker cannot mount the new certbot files to the nginx container.
+
+```bash
+sudo chown -R $USER ./certbot
+```
 
 ### Renew SSL certificates
 
@@ -229,7 +233,7 @@ server {
 }
 ```
 
-If you don't have the site ready yet, you can use the same `403` error code as the HTTP section and modify the `location` field later.
+If you don't have the site ready yet, you can use the same `404` error code as the HTTP section and modify the `location` field later.
 
 Then restart Nginx container by:
 
