@@ -11,4 +11,4 @@ My master degree is at Aerospace Engineering and have been working in the Aerosp
 
 My hobby includes weightlifting, and swimming, a gym rat 😊.
 
-Welcome anyone to my GitHub page at: https://github.com/xiahualiu. Please note I am **NOT ONLY** a software engineer, **BUT ALSO** with a very good background for hardware design, such as circuit board design, 3D modeling and embedded system development.
+Welcome anyone to my GitHub page [here](https://github.com/xiahualiu). Please note I am **NOT ONLY** a software engineer, **BUT ALSO** with a very good background for hardware design, such as circuit board design, 3D modeling and embedded system development.
