@@ -184,3 +184,5 @@ If you are familiar with the design pattern, the factory method is based on the 
 
 Almost all modern programming language provides certain higher-order functions for array manipulation.
 
+The most famous examples are `map()` functions from languages like Python or Rust. This function is not available in C++, however.
+
