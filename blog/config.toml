@@ -121,30 +121,29 @@ seo = false  # enable or disable seo-related meta tags: opengraph, facebook, twi
 
 feed = true # this adds the RSS feed icon in the footer.
 mail = "liuxiafa@gmail.com"
-mastodon = "https://mastodon.example.com/@username"
-element = "matrix.example.com"
-buymeacoffee = "your-user-name"
-kofi = "your-user-name"
-discord = "your-discord" # Everything after https://discord.com/   eg: invite/my-server  *or*  servers/my-server-id
-twitter = "your-user-name"
-facebook = "your-user-name"
+#mastodon = "https://mastodon.example.com/@username"
+#element = "matrix.example.com"
+#buymeacoffee = "your-user-name"
+#kofi = "your-user-name"
+#discord = "your-discord" # Everything after https://discord.com/   eg: invite/my-server  *or*  servers/my-server-id
+#twitter = "your-user-name"
+#facebook = "your-user-name"
 linkedin = "xiahualiu"
-gitlab = "your-user-name"
+#gitlab = "your-user-name"
 github = "xiahualiu"
-codeberg = "your-user-name" # Everything after https://codeberg.org/   eg: username  *or*  username/repository
-github_sponsor = "your-user-name"
-bitbucket = "your-user-name"
-python = "your-user-name"
-docker = "your-user-name"
-stack = "your-user-name"
-instagram = "your-user-name"
+#codeberg = "your-user-name" # Everything after https://codeberg.org/   eg: username  *or*  username/repository
+#github_sponsor = "your-user-name"
+#bitbucket = "your-user-name"
+#python = "your-user-name"
+#docker = "your-user-name"
+#stack = "your-user-name"
+#instagram = "your-user-name"
 #pixelfed = "https://pixelfed.example.com/" # Heaviest icon, off by default
-pinterest = "your-user-name"
-twitch = "your-user-name"
-youtube = "channel/your-channel-id"
-peertube = "https://peertube.example.com/@username"
-researchgate = "your-profile-id"
-
+#pinterest = "your-user-name"
+#twitch = "your-user-name"
+#youtube = "channel/your-channel-id"
+#peertube = "https://peertube.example.com/@username"
+#researchgate = "your-profile-id"
 
 ###############################################################################
 ### Commenting System for visitors to leave comments on pages.
