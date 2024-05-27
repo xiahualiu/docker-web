@@ -1,5 +1,8 @@
 +++
 title = "About"
+path = "about"
+template = "pages.html"
+draft = false
 +++
 
 I am [Xiahua Liu](https://www.linkedin.com/in/xiahualiu/), a C++/Rust software engineer, who is right now focusing on delivering secure and performant code to various industrial applications.

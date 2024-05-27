@@ -1,9 +1,5 @@
 +++
-paginate_by = 15
-path = "blog"
-title = "All blog posts"
+paginate_by = 3
 sort_by = "date"
-page_template = "blog-page.html"
+template = "index.html"
 +++
-
-> List of all *[tags](/tags)*
