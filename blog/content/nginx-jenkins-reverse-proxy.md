@@ -1,9 +1,12 @@
 +++
 title = "Set up Jenkins and Nginx Reverse Proxy in Docker Containers"
+date = 2024-04-20
+draft = false
 [taxonomies]
-  tags = ["docker"]
+  tags = ["Docker"]
 [extra]
   toc = true
+	keywords = "Docker, Jenkins, Nginx, Reverse Proxy, Container"
 +++
 
 This post shows how to set up Jenkins in docker, then use the Nginx container to reverse proxy the Jenkins website.
@@ -58,7 +61,7 @@ Here I assume you have already set up HTTPS for Nginx. If you want to se HTTP in
 
 Put this Nginx file at `./nginx/conf` folder, it is mounted to the `nginx` container in the `docker-compose.yml`.
 
-```nginx
+```
 # HTTP
 server {
     listen 80;

@@ -1,9 +1,12 @@
 +++
 title = "Set up Let's Encrypt (Certbot) and Nginx in Docker Containers"
+date = 2024-04-18
+draft = false
 [taxonomies]
-  tags = ["docker"]
+  tags = ["Docker"]
 [extra]
   toc = true
+	keywords = "Docker, Nginx, Certbot, Let's Encrypt"
 +++
 
 This post shows how to get Let's Encrypt SSL certificates for your self-hosted website on the Nginx container.
@@ -52,7 +55,7 @@ Note you cannot access the default Nginx index page yet, because the default ngi
 
 Let's create a simple configuration file in the `./nginx/conf` path, let's assume `./nginx/conf/app.conf`.
 
-```nginx
+```
 server {
     listen 80;
     listen [::]:80;
@@ -167,7 +170,7 @@ Although there are other ways to work around and make `--nginx` option work, I h
 
 After `certbot` issues your domain certificates successfully, you can then update your Nginx configuration to enable HTTPS:
 
-```nginx
+```
 server {
   listen 80;
   listen [::]:80;

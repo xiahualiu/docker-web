@@ -1,9 +1,12 @@
 +++
 title = "Make Jenkins Accessible Only through WireGuard VPN"
+date = 2024-04-19
+draft = false
 [taxonomies]
-  tags = ["docker"]
+  tags = ["Docker"]
 [extra]
   toc = true
+	keywords = "Jenkins, WireGuard, VPN"
 +++
 
 In the previous post [Set up Jenkins and Nginx Reverse Proxy in Docker Containers](/blog/nginx-jenkins-reverse-proxy), we successfully deployed the Jenkins controller node and reverse proxied the website page with Nginx.
@@ -76,7 +79,7 @@ To solve the above issue, next we are going to enable the IP filter function on 
 
 Go to your Nginx configuration file and add these 2 lines:
 
-```nginx
+```
 location / {
   # ...
   allow 10.66.66.0/24; # Only allow Wireguard Peers to visit

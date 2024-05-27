@@ -1,10 +1,13 @@
 
 +++
 title = "How to NOT Nest Your Code"
+date = 2024-05-10
+draft = false
 [taxonomies]
-  tags = ["design-patterns"]
+  tags = ["Design Patterns", "C++"]
 [extra]
   toc = true
+	keywords = "Code, C++, Design Patterns, Nest"
 +++
 
 At the beginning of the [Linux kernel coding style](https://www.kernel.org/doc/html/v4.10/process/coding-style.html#:~:text=if%20you%20need%20more%20than%203%20levels%20of%20indentation%2C%20you%E2%80%99re%20screwed%20anyway%2C%20and%20should%20fix%20your%20program.) document, it points out that:
