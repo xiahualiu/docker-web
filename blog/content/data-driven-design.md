@@ -57,8 +57,14 @@ The **System** is the actually function that read and write the data. The immedi
 
 If the answer is looking up the **Entities**, then you cannot guarantee data read by the **System** will be continuous, as a result it will basically beat the purpose of data-oriented architecture. In reality the system access the data through a **Query**.
 
+#### Query
+
 The **Query** is something like `Query<const CpA, CpB>.with<CpC>().without<CpD>()`, it means the **System** will look for an **Entity** that has `CpA` and `CpB`, `CpC` and NOT `CpD`, then the **System** is going to read `CpA` and read/write `CpB`.
 
 The interesting part is how **Queries** are implemented, all **Queries** are actually a tree starts from matching everything to matching a certain **Entity**. The root node has all **Components**, where the more constraints added to it, the fewer **Components** the node contains.
+
+A reference **Query** design can be found from [Flecs Queries](https://www.flecs.dev/flecs/md_docs_2Queries.html). The most important detail of implementing **Query** is to construct `tables` of **Components** and a
+
+And likewise, when a new **Component** is inserted to the memory, it needs to find the correct **Component** group to append to.
 
 *To-Be-Continued*

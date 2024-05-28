@@ -89,7 +89,7 @@ First check if `iptables` already allows 80 and 443:
 sudo iptables -L INPUT -n
 ```
 
-If there is no such rules **AND** the last rule is DROP/REDIRECT to prohibit, you need to add 80 and 443 to the INPUT chain:
+If there is no such rules **AND** the last rule is DROP/REDIRECT to PROHIBIT, you need to add 80 and 443 to the INPUT chain:
 
 ```bash
 sudo iptables -I INPUT 1 -m state --state NEW -m multiport -p tcp --dports 80,443 -j ACCEPT
