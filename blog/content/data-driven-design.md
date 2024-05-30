@@ -63,9 +63,9 @@ The **Query** is something like `Query<const CpA, CpB>.with<CpC>().without<CpD>(
 
 The interesting part is how **Queries** are implemented, all **Queries** are actually a tree starts from matching everything to matching a certain **Entity**. The root node has all **Components**, where the more constraints added to it, the fewer **Components** the node contains.
 
-A reference **Query** design can be found from [Flecs Queries](https://www.flecs.dev/flecs/md_docs_2Queries.html). The most important detail of implementing **Query** is to construct `tables` of **Components** and a
+A reference **Query** design can be found from [Flecs Queries](https://www.flecs.dev/flecs/md_docs_2Queries.html). The most important detail of implementing **Query** is to construct `tables` of **Components**.
 
-And likewise, when a new **Component** is inserted to the memory, it needs to find the correct **Component** group to append to.
+And likewise, when a new **Component** is inserted to the memory, it needs to find the correct **Component** table to append to.
 
 #### Parallel Systems with Reflection
 

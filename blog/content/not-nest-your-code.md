@@ -178,7 +178,7 @@ When we changed the state, we changed the override function for the interface fu
 
 ### Factory Method
 
-If you are familiar with the design pattern, the factory method is based on the same polymorphism philosophy, so you can also use factory method to create different types of object with the same interface functions. In language like Rust, these design pattern is built into the language itself.
+If you are familiar with the design pattern, the factory method is based on the same polymorphism philosophy, so you can also use factory method to create different types of object with the same interface functions. In language like Rust, this design pattern is built into the language itself.
 
 ## Use Higher-Order Functions
 
