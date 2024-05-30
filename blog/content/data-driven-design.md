@@ -67,4 +67,12 @@ A reference **Query** design can be found from [Flecs Queries](https://www.flecs
 
 And likewise, when a new **Component** is inserted to the memory, it needs to find the correct **Component** group to append to.
 
-*To-Be-Continued*
+#### Parallel Systems with Reflection
+
+One thing that is special about the data-oriented design is that all data are stored together, the **Systems**, are just functions with **Queries** as inputs.
+
+This makes concurrent processing of the data really easy, because the system can check whether 2 **Queries** return mutual exclusive **Components** based on the static types given by the **Queries**.
+
+For example **Query** `foo` searches all **Components** `A`, another **Query** `bar` searches all **Components** `B`, then the system that has `foo` as the input can run along side with a system that has `bar` as the input at the same time.
+
+This requires the problem can statically or dynamically checks the types of the parameter, which is a kind of meta programming capabilities, and this feature is called **Reflection**.
