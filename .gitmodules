@@ -1,3 +1,7 @@
 [submodule "blog/themes/abridge"]
 	path = blog/themes/abridge
 	url = https://github.com/jieiku/abridge.git
+[submodule "mirotalksfu"]
+	path = mirotalksfu
+	url = https://github.com/miroslavpejic85/mirotalksfu.git
+	branch = main
