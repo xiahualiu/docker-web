@@ -14,9 +14,8 @@ services:
       - ./blog/public/:/var/www/public:ro    # Zola site public folder
     networks:
       - local-net
-    depends_on:
-      - jenkins   # Need to know jenkins host for reverse proxy
-      - mirotalk
+#    depends_on:
+#      - jenkins   # Need to know jenkins host for reverse proxy
 
   # Lets Encrypt service
   certbot:
@@ -43,20 +42,6 @@ services:
     entrypoint: /usr/bin/zola
     volumes:
       - ./blog:/blog # Mount blog into the container
-
-  # Mirotalk
-  mirotalk:
-    image: mirotalksfu:custom
-    build:
-      context: .
-      dockerfile: ./mirotalk/Dockerfile
-    volumes:
-      - ./mirotalk/config.js:/src/app/src/config.js:ro
-    ports:
-      - '40000-40100:40000-40100/tcp'
-      - '40000-40100:40000-40100/udp'
-    networks:
-      - local-net
 
 networks:
   local-net:
