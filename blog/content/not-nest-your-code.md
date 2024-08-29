@@ -43,7 +43,7 @@ int getDaysOfTheMonth(const int n, const int year)
 }
 ```
 
-Here we used a bin-bucket hash table, but you can use any hash table types, like in C++ `std::map` or `std::unordered_map`, in Python `dict` object.
+The table can be other types, here we only used a bin-bucket hash table. You can use any hash tables as well, like in C++ `std::map` or `std::unordered_map`, in Python `dict` object.
 
 ## Early Return
 
@@ -55,7 +55,7 @@ This is easy to understand since the earlier a function returns the fewer contro
 
 ## State Design Pattern
 
-C++ uses vtable to achieve polymorphism, and it acts exactly like a `switch-case` or look up table we saw above.
+C++ uses vtable(virtual functions) to achieve runtime polymorphism, and it acts exactly like a `switch-case` or look up table we saw above.
 
 So we can use this feature, to hide the `switch-case` style functions by overriding the functions in different sub classes.
 
@@ -65,97 +65,7 @@ Let's assume you need to write the function for a ceiling fan, the user can inpu
 
 When the fan is the OFF, of course the user input does nothing and the speed is zero. But if the fan is ON, the user can control the speed of the fan.
 
-With the state design pattern, you can write the code like this:
-
-```cpp
-#include <iostream>
-
-class FanContext
-{
-    float speed;
-
-    public:
-    void increaseSpeed(float a) { this->speed += a; }
-    void decreaseSpeed(float a) { this->speed -= a; }
-    void setZeroSpeed() { this->speed = 0.0; }
-    void printSpeed() { std::cout << "The current speed is: " << this->speed << std::endl; }
-};
-
-class BaseFanState
-{
-    FanContext *context;
-
-    public:
-    enum STATE { ON, OFF };
-
-    FanContext& getContext() { return *context; }
-    void setContext(FanContext *newContext) { context = newContext; }
-
-    virtual void increaseSpeed(float a) = 0;
-    virtual void decreaseSpeed(float a) = 0;
-    virtual enum STATE getState() = 0;
-};
-
-
-class FanONState : public BaseFanState
-{
-    void increaseSpeed(float a) override { getContext().increaseSpeed(a); }
-    void decreaseSpeed(float a) override { getContext().decreaseSpeed(a); }
-    enum STATE getState() override { return ON; }
-} onState;
-
-class FanOFFState : public BaseFanState
-{
-    void increaseSpeed(float a) override { ; }
-    void decreaseSpeed(float a) override { ; }
-    enum STATE getState() override { return OFF; }
-} offState;
-
-class Fan
-{
-    BaseFanState* currentFanState;
-    FanContext context;
-
-    public:
-    Fan(BaseFanState* initState, FanContext initContext):
-    currentFanState(initState),
-    context(initContext)
-    {};
-
-    void changeState(BaseFanState* newState)
-    {
-        this->currentFanState = newState;
-        this->context.setZeroSpeed();
-        this->currentFanState->setContext(&this->context);
-    }
-
-    void printSpeed() { context.printSpeed(); }
-    void printState() { std::cout << "Current state is: " << currentFanState->getState() << std::endl; }
-    void increaseSpeed(float a) { currentFanState->increaseSpeed(a); }
-    void decreaseSpeed(float a) { currentFanState->decreaseSpeed(a); }
-};
-
-int main ()
-{
-    FanContext initState;
-    Fan A = Fan(&offState, initState);
-    A.printSpeed();
-    A.printState();
-    A.changeState(&onState);
-    A.printSpeed();
-    A.printState();
-    A.increaseSpeed(5.0);
-    A.printSpeed();
-    A.printState();
-    A.changeState(&offState);
-    A.printSpeed();
-    A.printState();
-    A.increaseSpeed(5.0);
-    A.printSpeed();
-    A.printState();
-    return 0;
-}
-```
+With the state design pattern, you can write the code like [this](https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGe1wAyeAyYAHI%2BAEaYxHoADqgKhE4MHt6%2BcQlJAkEh4SxRMVy2mPaOAkIETMQEqT5%2BRXaYDskVVQQ5YZHRegqV1bXpDX3twZ353VwAlLaoXsTI7BwmGgCC5gDMwcjeWADUJutuTr3EmKwH2Mtrq9tMCgq7AGKGHoKYqgRXJgDsVqu7AN2VFoqCYBF2ClimEw6AOf2uK0Bu1iXgitDwyBAVyRADdUHh0Lstqc7pghFCYdQQWDdkxJvtfrsCAg8AoALQXSHQwnWA4AEVpcIZfOxgLxBN2WGQJKU5O5VNB4LpDIsTJZ7M5FMJHPWAqYQp%2BIv%2BYvxhKUBAAWtFUHLKfSfqrmayddguTD9rrdhoAHQaA3fI2Ik0S2LEYLCLUQe2M3roEAoWbgg5uZP7MxmAAqCEwu2Qc1OgghWqJChAabMHpThzVzs13Mrqdj8dctH9gcNcK%2BNwM912FlJzwYrQImC%2Bv1FAMHrxHH12ACo0G8Pp3VhPkaj0Zi14wfLshBmVhnsCrdgB5UKkM%2BPR7ClcIpFT2TvT5mABsu2AmBqT4%2BUZPpwIOYGHnRcZ0%2BdZVQ7Y0AXFM0v2nZ8IEfJdwTnEIAHcEI%2BaNVVA58PQFDCsPAyCAy7IMYLwaovDEXZYKJBhpTOWVI2BRVaXtT0/QgtccSowDaPoqUZTJVjqSVTiBW4%2BFcX4mjaF2HcWD3A8jw/L9h0wP9%2BS9O8Ox41dDJWW5e0Hc9NN2MsUTRDE%2BwHQxNLHGTg0JYlmNE%2BU2JpZVUBxaIwz2B11O/FCo29NzSVtdAIDpNteNNSUmhEqKFW8%2BlfP8gkcyCz8QrAsLhPclLYog29oMUhhd33Q9j1yzS/wy4gAuyxkAKAs9Qji1cA12cpKhHPTuzuB4zOvCyrI3Wz%2ByUQdHO65yYISiKWM88SON6vymqyk8uoouiEsKyKxPYnzNuanbSqgvalJUmrgvq9Kzu2oK2uIYDT2vXbDV6qgqEcgyERMkbDCctdpswWb%2BswOdc3zRgCEhsFRwBh8Xh/cE8OXAG12szcsXKwcIHBxGRxh4JCE0y9kLAhjCGIyZ8b2vMmvhkmtPJ4QoemNdMYICAOfptcHX0%2BF4olZAEEMT96uJhyoZhjDNMmIXx3KpEnQ1dZsGZgsEblpGCN2RWobvJF1fVF1ee9c0rWIG1I2VlGzYBDXLbhwQ2Zdc1iIgcxX1di5ecdhayvvFzkTDQQUpw3N0e9UNw2j3bcQShOo6h7SYwIOMEy8JNDlTcwzDcd3wV6A3WTLIuG2rHXWf1kcXTqjPOKrNwIWz5sGHQVtLrI8r6OWjzKS8iSTzrj2G8wF0h%2BK4PQ5TiVDpWke1uVIKJ71ocoZdZfh%2BikrSPbMjsdWcNdhYJhgl2KNQYJtGUNpzmkdNwFB12REdMJv3UF%2Bymn6Vq/AEKx46RwjPKYOa4QFp2fiOW%2BTtgHegllLMkGcf7byRpA8q0CwFJwQR/UBicW5AIIbPSMABWX0WC9o4MTg7EhtD05I3gSHEByCjCoOYT/P%2BXMGGEKjvQ/BjDYFaWoUiEBZD5SUI0GIwEwi8GsP4SIlha5XrAWkmOPkHBpi0E4OQ3gfhuC8FQJwFMlhrAQlmPMbKZh1g8FIAQTQ2jpgAGsQDrHWN6Dx3ifG%2BNfPoTgkgDFONICYjgvBSwaAcU46YcBYBIDQCwWIdBojkEoIk5J9AYjACkGYPgdARzEFLBACIISIjBCqAAT04PY8pzBiCVNPBEbQTRHFGNIIktgghTwMFoNUjgWhSBYAiF4YAbgxC0FLO0rAl8jDiAGbwfApxmh%2BSmYM94TQ86LEGeGEoIT0QRGIFUjwWAQkEDDCwGpvBNoRASJgPkmBZnAHREYGJfADDAAUAANTwJgdCp4oSGPsfwKOohxBSBkIIRQKh1ALNILoIoBhXmmHMZYfQeAIilkgNMVAsQygMCmcYp6WAsVRmKKUZILhu4DHqKQQIow8gFAyIkfFNLmVZAYB0RlExyWtJaMMNlDQSh8r6m0LlXRCi2AFZ4OoPRhjivGIUaYCgrELAkDovRwS4VhN2KoAAHK%2BNkr5JAfmQMgXYUhvQVggLgQgJA0x2MmLwNpWhJiuPcZ43xXrvH%2BN0RwIJpBDGDLCREkAUSXXaNIHExAIBEwogIGkiAGSUnEFCKwRY%2BrDXGtNeay1ZheAwjtQFPQILhBgvYBC0t0K1AhIRaQdCRzYhXI1RwfRgaQlhNPHneNP1dUGqNSa4AZqLWSCtTfDwSSU0OqmM6mJ7qPFeO9V6gJ/qtXBs4KG8Nc6V35vbdqjd0SFlutIJtRIzhJBAA%3D%3D%3D).
 
 Output of the test code:
 
