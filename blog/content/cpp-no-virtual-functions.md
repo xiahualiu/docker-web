@@ -1,5 +1,5 @@
 +++
-title = "Avoid virtual functions in C++"
+title = "Avoid virtual functions in C++."
 date = 2024-08-27
 draft = false
 [taxonomies]

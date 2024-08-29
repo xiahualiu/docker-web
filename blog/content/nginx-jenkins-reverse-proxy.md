@@ -1,5 +1,5 @@
 +++
-title = "Set up Jenkins and Nginx Reverse Proxy in Docker Containers"
+title = "Set up Jenkins and Nginx Reverse Proxy in Docker Containers."
 date = 2024-04-20
 draft = false
 [taxonomies]
