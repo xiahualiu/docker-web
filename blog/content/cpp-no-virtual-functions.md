@@ -111,6 +111,8 @@ For example we want to have a `print_object()` function that calls the correspon
 ```cpp
 template<class T>
 std::string print_object(const T& a) {
+  static_assert(std::is_convertible_v<T, BaseData<T>>,
+    "print_obj() can only be called on types that inherits BaseData.");
   return a.print();
 }
 ```
