@@ -32,10 +32,10 @@ After C++17 you can use `decltype(T)` and `decltype(std::hash<T>())` so these ty
 
 Because it is a template struct, you can add member varibles in your type specification, such as seed value to enable salted hash.
 
-Even the default specification for all `std` data types are stateless, you can and hash states as well for your own application.
+Even the default specifications for all `std` data types are stateless, you can add hash states as well for your own application.
 
 Salted hash also requires the `std::hash` to be created as a discret object to store the internal seed value, instead of being a conceptual function and never created in the software.
 
 ## Conclusion
 
-`std::hash` is designed to be a struct so that it gives the user more choice when designing the hash steps.
+`std::hash` is designed to be a struct so that it gives the user more freedom to design the hash process.
