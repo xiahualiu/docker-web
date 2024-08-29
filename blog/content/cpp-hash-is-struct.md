@@ -1,5 +1,5 @@
 +++
-title = "Why `std::hash` is a struct"
+title = "Why std::hash is a struct"
 date = 2024-08-28
 draft = false
 [taxonomies]
