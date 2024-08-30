@@ -13,7 +13,7 @@ Virtual function is the core feature of C++, it was introduced to C++ from the v
 
 ## Example
 
-Let's say you are going to write a database application. For each data type inside the database, it must have a `print()` function associated, which returns a `string` type, so that people can see the data.
+Let's say you are going to write a database application. For each data type inside the database, it must have a `print()` function associated, which returns a `std::string` type, so that people can see the data.
 
 We can define a base abstract class, then declare `print()` as a pure virtual function there, so we can redefine this function later on for our data types, for example `Int1`.
 
@@ -21,11 +21,11 @@ Example code can be found [HERE](https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmB
 
 However, even `Int1` only has 1 `int` member variable, storing it takes 16 bytes of space!
 
-`Int2` which does not have virtual functions at all, only takes 4 bytes to store. Imagine if we are going to store billions of `Int1` in our database, `Int1` will definitely become a poor choice.
+`Int2` which does not have any virtual functions at all, only takes 4 bytes to store. Imagine if we are going to store billions of `Int1` in our database, `Int1` will definitely become a poor choice.
 
 Where does this size difference come from? 
 
-If you read the assembly code, inside the `Int1` constructor, we need to store an additional value `vtable for Int1+16`, which points to the `vtable` for `Int1` on memory.
+If you read the assembly code on godbolt, inside the `Int1` constructor, the program needs to store an additional value `vtable for Int1+16`, which points to the `vtable` for `Int1` on memory.
 
 ```assembly
 Int1::Int1(int) [base object constructor]:
@@ -66,7 +66,7 @@ Int2::Int2(int) [base object constructor]:
 
 The reason for the extra 8 bytes are that, **for a `Int1` object to call its virtual functions, the program needs to find the `vtable` belongs to this `Int1` first**.
 
-Why we need to store this value?
+Why we need to store this value? Can't we just hardcode it in the `Int1::print()` function?
 
 Imagine if we `static_cast` our `Int1` object back to the base class `BaseData`, even though the cast object is `BaseData` type, the `vtable` pointer is still same as the `Int1` type. In short:
 
@@ -94,29 +94,37 @@ The *Run-time Polymorphism* virtual functions provides, is a double edge sword, 
 
 We can use a design pattern called Curiously Recurring Template Pattern (CRTP).
 
-[Here is the example code](https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGIAKxcpK4AMngMmAByPgBGmMQgZmakAA6oCoRODB7evgFBaRmOAmER0SxxCUm2mPbFDEIETMQEOT5%2BgTV1WY3NBKVRsfGJyQpNLW15nWN9A%2BWVIwCUtqhexMjsHOYAzOHI3lgA1Cbbbk5jxJisJ9gmGgCCO3sHmMenF%2BHAN3ePDwSYLBSBn%2Bbzc%2ByYCgUhwAKt8HuDIYcLBDMAARJhNY4AdisD0O%2BJSXhitDwyBAP3x%2BLG6BAIA%2BRkOKWI4QIEEW2Ish0uBDWDEOM0cyAA%2BqIxic3NCAFQ3CAEBB4BSLAB0TJZbJOnJMWNRPy1Ou2uN%2B9wRUIAkoIzByKQSiSSydb8eaCGY2YcQIcAG5iLyYCBcDTsrVWbUO/kEGl0gjMhmqwSuoNczA84h86m0ohC%2BnACBe7yYRYa7E6h4O1Ve/7kvGUlme72YDW6kMG3XwgyIp3bN2M22kpEo9FNcUdm5Wqvd4mkyv3SmHDuu925n1%2BgNWkNjsMRrOM6OswM4xPJ1Ph9OoTNRz45usFg1FlvTgnM8vsUM1xf15slpuGn41lhMcLxjioYdocTDbA265OpaTBmBB95UseKCrAQoLivyeAAF6YKgVAQGBganGhaYgK4tBwTOxFoF4KHikRmHYbhMEEW4RGIaR5GUtyvKHBocF6hwyy0Jw/i8H43C8KgnAsZY1j8qs6yvDsPCkAQmgCcsADWIDbNsSo6fpBmGQAbPonCSKJamkJJHC8AoIAaCpanLHAsBIGggJ0PE5CUO5KSeQkwBSMkNC0P8xB2RAMSWTE4TNAAnpwykxcwxBxQA8jE2iYA4iW8O5bCCGlDC0AlHBaKQWAxF4wBuGItB2eJFUAoYwDiGVvD4JcDh4B6mANeVmCqNl1GbOVLK1JZJIxMQ8UeFglnniwuWkL1xAxOkaLNUYJJGE5fAGMACgAGp4JgADuaUpIwy38IIIhiOwUgyIIigqOo7WkLoQQGLtpgyZY%2Bh4DEdmQMsqApPUDUSatzJYCDbJdNl9QuAw7ieO0eihOEgwVMMBTpJkAiTH4%2BNFFkcxDAkQR2EjPTjK06N5NTtS0wIvQtBTuNU7Y9PE3oMwc9j8x48sCjyRsEiCcJFkfdZhyqAAHEZAC0RmSIcwDIMghxSEqloQLghAkMcZjbFwiy8Kp7WLJp2m6YZDv6SZQkcOZpBieV1m2fZjnW6QLmICAyGEgQ3kQL5/mRKwmyKyrasa1rOuSHrvCYPgRCw3ot3CKI4hPdnr1qJZX2kGdM0pLlUscCJ7uWdZaXUSHhw4fLSuq%2Brmva7r%2BseB59DECbZsW77Wg26QWk6XpjsO6Zrsy57nDew5Vuj1XZjzxJi8j%2BpK3xBkziSEAA%3D)
+[Here is the example code](https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGIMwBspK4AMngMmAByPgBGmMT%2BAMykAA6oCoRODB7evv5BaRmOAmER0SxxCWbJdpgOWUIETMQEOT5%2BgbaY9sUMjc0EpVGx8Um2TS1teZ0KE4PhwxWj1QCUtqhexMjsHOaJ4cjeWADUJoluTrPEmKxn2CYaAIJ7B0eYp%2BdX4cB3D89PBEwLBSBkBHzchyYCgUxwAKr8npDoccLFDMAARJhNU4AdisT2OhJSXhitDwyBAf0JhNm6BAIC%2BRmOKWI4QIEBWxzQDFmuPxj2pguO1wImwYx1mWPJAH1RLMzhCBLzYQAqO4QAgIPAKFYAWjuXiUxGlLLZHLO/MFJhx6L%2B1ttiX5fyRMIAkoIzHyqUSSWSKd7Ce6CGYOccQMcAG5iLyYCBcDSc61WG0BiUEOkMgispmmwSh7m8pPCzCi4ji2n0ojSxnACBR7yYFYW3G2p4B01RwGUgnUtmR6OYC12lOOu2IgzIoOJMPM33klFozFNBVTu5enuz0nk7sC6lT0Ph%2BsxuMJr0pjdpjM146G%2BIm7PszkFgh84ul8vpyuoatZ751gdNo6LZjruzKsp27Cpn2R6DqObYjk6TwAPRIccQisO8UJcmIZJMjEaJchOMJUF4DD1AIxwAO6EAgkZ4C0XhiMcJFkb0Ch/ICwKgu8CounCCKPBWmbZsAYFstKqAxNodTss%2BC5KEuTAKvCiT3IExxMImeKpiKYoaQAdLmj5DvBrb/I8fYsEw4ShkmqZThpiQmaBxxBp6TBmM5gpCWgXgvgqCoSngABemCoFQEBMIkibnIFQmuLQXnUj5Gz%2BbF5xBaF4WRWYMVuHFn4gAlSU0oVvlpflGVRYZD62elbiXvSxVwS5KV%2BeCgUeTVZp5QVGbNZa1Iod5ZWpR1GVGRJUkyTlvUZfFDDoIlQHDdgxDECQqZtRVgWTZJ0kOJF0XjQ1C1LSVb56Rozn2hway0JwACsvB%2BNwvCoJw%2BWWNYEobFsPHVDwpAEJod1rAA1iAiSJPp0Nw/DCNBA9HCSC9oOkB9HC8AoIAaMDoNrHAsBIGgwJ0PE5CUKTKTkwkwBSGYfB0ICxA4xAMTozE4TNAAnpwQNc8wxA8wA8tNDj87wpNsIIIsMLQfMcFopBYDEXjAG4OE429KtAoYwDiErvD4Nc9QRpg2vK5gqh1H5OzK2y3To2SMTELzHhYOjv4sJLpDm8QMTpBietGLhoBG2sVAGMACgAGp4JglEiykjC%2B/wggiGI7BSDIgiKCo6hG6QuhcPo%2BsoNY1j6HgMQ45AayoCkbGcO9/uslgdccl0PRZC4i1TH4pehAs5SVHohSZAIA/j%2Bkk8MEMo%2BjKXtTkX0czT8v3QyQ0cwLyMCTL%2BvnjtHokotHvSwH2sCh/dsEj3U9aNF5jxyqAAHAEuoBJIxzAMgyDHCkPpT0EBcCEBIKcQGKxeAgwjhDKGMMEZILhkjTgqNSCvWVpjbGuN8YR1IETRAIBUrEgIJTCA1NaaRAwpwd%2Bn9v6/3/oAyQwDeCYHwEQdueh07CFEOIHOPD85qHRiXUglE3YpElg/Dgz0MHo0xiLPypDjjhVfh/L%2BP8/4AKASAjwZN6DEEgYkLg0C8FaBWPA6GsNkFIP0Ggp%2BWCW62FwbA8x0izAOPek41xYM/bxAyM4SQQA)
 
-The assembly code for `Int3` and `Int2` is identical, but since `Int3` inherits `BaseData`, user now must implement `print()` for `Int3` or will get a link error. 
+The assembly code for `Int3` and `Int2` is identical, but since `Int3` inherits `BaseData`, user now must implement `user_print()` for `Int3` or will get a compilation error. 
 
 The `Int3` implementation is almost identical with the virtual function version but it does not have any performance overhead.
 
+### Little heads up
+
+You may have noticed that `Int3` has a different `user_print()` function name than the `print()` in `BaseData<Int3>`.
+
+This is because in CRTP, you MUST differ the function names (here in our example `base_print()` and `print()`) that are used in the base class and the derived class.
+
+Otherwise the program will run into segment fault issue, since the compiler now links these 2 functions in a circle.
+
 ## Generic programming vs virtual functions
 
-The CRTP style of programming is acutally called **generic programming**. Where we consider more generic types than a specific one in our software, for example:
- 
-To operate on a object that inherits `BaseData<T>` further more, we are going to use template again.
+The CRTP style of programming is acutally the fundation of the **generic programming** style in C++, where we consider more generic types than a specific one in our software.
 
-For example we want to have a `print_object()` function that calls the corresponding `print()` function on an object. We can write:
+For example we want to have a `print_object()` function that calls the corresponding `print()` function on an object that inherits the `BaseData` interface. We can write:
 
 ```cpp
 template<class T>
-std::string print_object(const T& a) {
-  static_assert(std::is_convertible_v<T, BaseData<T>>,
-    "print_obj() can only be called on types that inherits BaseData.");
+std::string print_object(const BaseData<T>& a) {
   return a.print();
 }
 ```
 
-Because we know `T` inherits `BaseData<T>`, `T` must have the `print()` function that we need. Now `T` becomes a generic type, all types that inherits `BaseData<T>` can be accepted here instead of a specific type.
+Writting this way, we ask the compiler to determine whether `T` inherits `BaseData<T>` during the compile time.
 
-In generic programming, we care more about the interface of an object, rather than the type of it.
+Note `BaseData<T>` in this function template now becomes a generic type, all types that inherits `BaseData<T>` can be accepted here instead of a specific type one.
+
+In generic programming, we care more about the interface of an object, rather than the type of it, or its private content.
+
+The generic interface of a type is provided by its parenet classes (one can have more than one interfaces of course), at zero runtime cost.
