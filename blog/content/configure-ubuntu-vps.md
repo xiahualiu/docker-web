@@ -203,3 +203,9 @@ Make sure the `<ssh_port>` is correct or you will lose the active SSH session im
 ```bash
 sudo systemctl restart nftables.service
 ```
+
+If it works and you didn't lose the connection, enable it in systemd. Otherwise, reboot to undo the changes.
+
+```bash
+sudo systemctl enable nftables.service
+```
