@@ -71,7 +71,7 @@ sudo vim /etc/systemd/resolved.conf
 
 Enable:
 
-```
+```conf
 DNSSEC=yes
 DNSOverTLS=yes
 ```
@@ -104,7 +104,7 @@ sudo vim /etc/ssh/sshd_config
 * Disable root login.
 * Disable passwod authentication.
 
-```
+```conf
 Port <newport> # Setting is not used after 22.10
 PermitRootLogin no
 PasswordAuthentication no
@@ -131,7 +131,7 @@ vim ~/.ssh/config
 
 An example ssh client config file:
 
-```
+```conf
 Host <my_server_name>
     HostName <ip1>, <ip2>, <ip3>, ...
     User <user_name>
@@ -172,7 +172,7 @@ Edit `/etc/nftables.conf`.
 sudo vim /etc/nftables.conf
 ```
 
-```
+```conf
 #!/usr/sbin/nft -f
 
 flush ruleset
