@@ -144,7 +144,7 @@ Host <my_server_name>
 You want to restart and test the new SSH settings before moving on.
 
 ```bash
-sudo systemctl restart ssh.service
+sudo systemctl restart ssh.socket
 ```
 
 On the client side:
