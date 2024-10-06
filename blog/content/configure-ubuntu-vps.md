@@ -11,6 +11,16 @@ draft = false
 
 This is a personal note post to remind me the steps for basic cloud server configuration on Ubuntu 24.04 LTS.
 
+## Update all packages & Linux kernel
+
+The first thing to do is always updating everything, including the Linux kernel.
+
+```bash
+sudo apt update
+sudo apt upgrade
+sudo reboot
+```
+
 ## New User Configuration
 
 If there is only a `root` user, you need to add a non-root sudo user for security reasons:
@@ -119,6 +129,7 @@ You need to edit the `ssh.socket` trigger to change the `ListenPort` and `Listen
 ```bash
 sudo vim /usr/lib/systemd/system/ssh.socket
 sudo systemctl daemon-reload
+sudo systemctl restart ssh.socket
 ```
 
 ### Update SSH client configuration
@@ -144,7 +155,7 @@ Host <my_server_name>
 You want to restart and test the new SSH settings before moving on.
 
 ```bash
-sudo systemctl restart ssh.socket
+sudo systemctl restart ssh
 ```
 
 On the client side:
@@ -208,4 +219,24 @@ If it works and you didn't lose the connection, enable it in systemd. Otherwise,
 
 ```bash
 sudo systemctl enable nftables.service
+```
+
+## (Optional) Install and configure `fail2ban`
+
+This step is optional, but adds more security to our server.
+
+```bash
+sudo apt update && sudo apt install -y fail2ban
+```
+
+The configuration is simple:
+
+```bash
+sudo vim /etc/fail2ban/jail.d/defaults-debian.conf
+```
+
+Make sure you have installed `nftables` and uninstalled `iptables`, `ufw`, etc. before installing the `fail2ban` package. It will automatically use `nftables` as ban actions. 
+
+```bash
+sudo systemctl restart fail2ban.service
 ```
