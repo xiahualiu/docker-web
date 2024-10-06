@@ -30,7 +30,7 @@ These fields provide important information for IP routing, and the NAT operation
 
 ## `nftables` Workflow
 
-![](https://people.netfilter.org/pablo/nf-hooks.png)
+![](images/nf-hooks.png)
 
 For simplicity we are going to assume that we don't have any bridge device inside our system.
 
