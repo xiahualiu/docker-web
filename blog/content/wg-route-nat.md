@@ -13,7 +13,7 @@ Hi I am the maintainer of the GitHub project [wg_gaming_installer](https://githu
 
 ## IPv4 & IPv6 Packet Structure
 
-Before we move on please refer to:
+Before we move on, please refer to:
 
 * [IPv4 header format](https://en.wikipedia.org/wiki/IPv4)
 * [IPv6 header format](https://en.wikipedia.org/wiki/IPv6)
@@ -178,5 +178,5 @@ Because in the installer script, the prerouting priority is `dstnat`=-100, which
 In order to solve this problem, we need to add our DNAT rules to the [system's reserved ports](https://www.kernel.org/doc/html/latest/networking/ip-sysctl.html#ip-variables).
 
 ```bash
-sysctl -w net.ipv4.ip_local_reserved_ports = <reserved_port_range>
+sysctl -w net.ipv4.ip_local_reserved_ports = <forward_port_range>
 ```
