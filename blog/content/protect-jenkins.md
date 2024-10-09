@@ -1,5 +1,5 @@
 +++
-title = "Make Jenkins Accessible Only through WireGuard VPN."
+title = "Make Jenkins accessible only through WireGuard VPN."
 date = 2024-04-19
 draft = false
 [taxonomies]

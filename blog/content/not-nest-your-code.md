@@ -1,6 +1,6 @@
 
 +++
-title = "How to NOT Nest Your Code."
+title = "How to NOT nest your code."
 date = 2024-05-10
 draft = false
 [taxonomies]

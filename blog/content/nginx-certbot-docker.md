@@ -1,5 +1,5 @@
 +++
-title = "Set up Let's Encrypt (Certbot) and Nginx in Docker Containers."
+title = "Set up Let's Encrypt (Certbot) and Nginx in docker containers."
 date = 2024-04-18
 draft = false
 [taxonomies]
