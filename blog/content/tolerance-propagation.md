@@ -5,6 +5,7 @@ draft = false
 [taxonomies]
   tags = ["Math", "Control System"]
 [extra]
+  math = true
   toc = true
 	keywords = "Float, C++, Error"
 +++
