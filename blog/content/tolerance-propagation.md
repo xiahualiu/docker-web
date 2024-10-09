@@ -1,6 +1,6 @@
 +++
 title = "Don't ignore data tolerance in control system design."
-date = 2024-08-28
+date = 2024-10-09
 draft = false
 [taxonomies]
   tags = ["Math", "Control System"]
