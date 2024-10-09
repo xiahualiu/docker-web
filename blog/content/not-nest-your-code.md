@@ -1,4 +1,3 @@
-
 +++
 title = "How to NOT nest your code."
 date = 2024-05-10
