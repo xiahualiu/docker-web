@@ -6,6 +6,7 @@ draft = false
   tags = ["Math", "Control System"]
 [extra]
   math = true
+  math_auto_render = true
   toc = true
 	keywords = "Float, C++, Error"
 +++
