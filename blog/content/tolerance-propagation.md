@@ -1,5 +1,5 @@
 +++
-title = "Float-points precision loss detection for safety critical system."
+title = "Float-points precision loss detection for safety critical systems."
 date = 2024-10-09
 draft = false
 [taxonomies]
