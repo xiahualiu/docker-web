@@ -1,5 +1,5 @@
 +++
-title = "Precision loss detection mechanism."
+title = "Precision loss detection in control systems."
 date = 2024-10-09
 draft = false
 [taxonomies]
@@ -52,9 +52,9 @@ $$\epsilon_{double}\approx\frac{x}{2^{52}}$$
 
 No matter what system you have, and where the input data are coming from, there will always be uncertainty in the input data. 
 
-### Example: sensor reading tolerance
+### Example: Measurement error
 
-Such as sensor reading error, that comes from the physical inputs. 
+Also known as sensor reading error, it comes from measurements of physical values such as distance, temperature, weight and time.
 
 For example, an NTC temperature sensor can measure temperate within $\pm 0.1 C$ tolerance, this means that for all data from it, come with this much uncertainty.
 
@@ -67,8 +67,6 @@ $$\epsilon_{0.999}<0.1C$$
 To represent the error of this sensor.
 
 Note this our notation works closely with the failure mode analysis of the system, if the control system is designed to use $\epsilon_{0.999}$ for error bound, the failure rate will be $1-0.999=0.001$.
-
-### Data tolerance can be propagated
 
 If the data come from another system, the provider system should also provide the error tolerance information for the data it provides, with no exceptions.
 
