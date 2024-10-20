@@ -128,7 +128,9 @@ If you are familar with the other async frameworks you will notice that:
 * The `in_ch.push()` then `in_ch.notify()` combination is actually same as you create a `promise` or `future` using the async framework.
 * The `out_ch.pop()` is actually same as `await`. The parent thread blocks on calling this function to wait the results became available.
 
-We just create a tiny framework in a few lines with `std::thread`! However the modern async framework usually is more complicate where the executioner could be a thread pool or co-routines instead of the system threads. However the concept displayed is the same.
+We just create a tiny framework in a few lines with `std::thread`! However the modern async framework usually is more complicate. 
+
+The executioner in the framework could be a thread pool or co-routines instead of a system thread.
 
 ## One Step Forward
 
@@ -161,7 +163,7 @@ There is another scenario that we want the parent thread to wait until the first
 
 The easiest solution is actually quite simple, we just need to use `std::variant` and share the same channel (with `std::variant` as storage type) among different threads. For parent thread we can use `std::visit` to process the result further.
 
-However the easiest solution is static, Because you cannot change the channel during the runtime.
+However the easiest solution is static, because you cannot change the channel during the runtime.
 
 You can also have a dedicated channel. When a child pushes new result, the child uses this channel to report which channel number is ready for parent thread to read.
 
