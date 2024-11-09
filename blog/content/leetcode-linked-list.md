@@ -9,7 +9,7 @@ draft = false
 	keywords = "LeetCode, C++, Algorithm"
 +++
 
-After I solved around 20 questions on leetcode about linked list, I think it is time to summarize everything I learned so far:
+After solved around 20 questions on leetcode about linked list, I think it is time to summarize everything I learned so far:
 
 ## Type Definition
 
