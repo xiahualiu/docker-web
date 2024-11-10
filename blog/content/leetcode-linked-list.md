@@ -3,10 +3,10 @@ title = "LeetCode Linked List Question Summary"
 date = 2024-11-09
 draft = false
 [taxonomies]
-  tags = ["LeetCode", "C++", "Algorithm"]
+  tags = ["LeetCode", "C++", "Algorithm", "Linked List"]
 [extra]
   toc = true
-	keywords = "LeetCode, C++, Algorithm"
+	keywords = "LeetCode, C++, Algorithm, Linked List"
 +++
 
 After solved around 20 questions on leetcode about linked list, I think it is time to summarize everything I learned so far:
@@ -162,7 +162,7 @@ A good example to use all of above things we dicussed is [LeetCode question 206:
 
 Because we need to visit 2 nodes at once:
 
-#### Iterative Style
+#### Iterative style
 
 ```cpp
 ListNode* reverse_linked_list_pre_iter(ListNode* head) {
@@ -181,7 +181,7 @@ ListNode* reverse_linked_list(ListNode* head) {
 }
 ```
 
-#### Recursive Style
+#### Recursive style
 
 ```cpp
 ListNode* reverse_linked_list_pre_recur(ListNode* prev, ListNode* cur) {
@@ -201,7 +201,7 @@ ListNode* reverse_linked_list(ListNode* head) {
 
 ### Post-Order Traversal Solution
 
-#### Iterative Style
+#### Iterative style
 
 ```cpp
 ListNode* reverse_linked_list_post_iter(ListNode* head) {
@@ -224,7 +224,7 @@ ListNode* reverse_linked_list(ListNode* head) {
 }
 ```
 
-#### Recursive Style
+#### Recursive style
 
 ```cpp
 void reverse_linked_list_post_recur(ListNode* prev, ListNode* cur, ListNode*& result) {
