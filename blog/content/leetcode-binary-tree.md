@@ -138,6 +138,50 @@ void post_order(TreeNode* cur) {
 }
 ```
 
+## Binary Tree BFS
+
+Sometimes the question requires BFS on a binary tree, like print each level from left to right.
+
+### Iterative style
+
+```cpp
+void bfs(TreeNode* root) {
+    auto next = queue<TreeNode*>({root});
+    while (!next.empty()) {
+        for (auto i = 0; i < next.size(); i++) {
+            auto cur = next.front();
+            next.pop();
+            if (cur != nullptr) {
+                // Do something to cur
+                next.push(cur->left);
+                next.push(cur->right);
+            }
+        }
+    }
+}
+```
+
+### Recursive style
+
+```cpp
+void bfs(queue<TreeNode*>& next) {
+    if (next.empty()) {
+        return;
+    } else {
+        for (auto i = 0; i < next.size(); i++) {
+            auto cur = next.front();
+            next.pop();
+            if (cur != nullptr) {
+                // Do something to cur
+                next.push(cur->left);
+                next.push(cur->right);
+            }
+        }
+        bfs(next);
+    }
+}
+```
+
 ## Examples
 
 ### Pre-order Traversal Question
@@ -282,5 +326,49 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
     } else {
         return nullptr;
     }
+}
+```
+
+### Binary Tree BFS Question
+
+[LeetCode Question 103: Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/).
+
+This BFS question is kind of different, because we can do BFS with 2 `stack`s.
+
+```cpp
+vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    auto result = vector<vector<int>>();
+    auto next_s1 = stack<TreeNode*>({root});
+    auto next_s2 = stack<TreeNode*>();
+    auto l2r = true;
+    while(!next_s1.empty() || !next_s2.empty()) {
+        auto tmp = vector<int>();
+        if (l2r) {
+            while(!next_s1.empty()) {
+                auto cur = next_s1.top();
+                next_s1.pop();
+                if (cur != nullptr) {
+                    tmp.push_back(cur->val);
+                    next_s2.push(cur->left);
+                    next_s2.push(cur->right);
+                }
+            }
+        } else {
+            while(!next_s2.empty()) {
+                auto cur = next_s2.top();
+                next_s2.pop();
+                if (cur != nullptr) {
+                    tmp.push_back(cur->val);
+                    next_s1.push(cur->right);
+                    next_s1.push(cur->left);
+                }
+            }
+        }
+        l2r = !l2r;
+        if (tmp.size()>0) {
+            result.push_back(tmp);
+        }
+    }
+    return result;
 }
 ```
