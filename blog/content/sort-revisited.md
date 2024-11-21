@@ -148,7 +148,7 @@ void merge_sort(vector<int>& vec, vector<int>& buffer, int start_i, int end_i) {
 
 I have discussed this with one of my friend and he said we could avoid copying by reciprocally switch `buffer` and `vec` between recursive calls.
 
-So this is a better version, without `clear()` and `copy()` at the end of each recursive call.
+So this is a better version of the last C++ `merge_sort` code, without `clear()` and `copy()` at the end of each recursive call.
 
 ```cpp
 void merge_sort(vector<int>& vec, vector<int>& buf, int start, int end) {
@@ -192,7 +192,7 @@ At the beginning you should make sure `buf` is a copy of `vec`.
 
 Heap sort is a little different, as it is very efficient for getting min or max one by one. It is used a lot to implement things like `priority_queue` data structure.
 
-Compared with merge sort and quick sort, it has several advantages:
+Compared to merge sort and quick sort, it has several advantages:
 
 * Heap sort requires no extra space, which makes it suitable for large data structure.
 * The heap data structure is good for inserting new value in the runtime, as well as popping the min/max value.
@@ -206,15 +206,15 @@ If the min/max element is popped or written over, the mantainence will only take
 
 Heap sort can be described as first making a vector into a heap, then pop the first element one by one. The pop is done by swapping head and tail elements, reduce the vector size by 1, then do sink the new top element.
 
-Heap itself can be seen as a **complete binary tree** data structure. So the time complexity for heap sort is very stable. 
+Heap itself can be seen as a **complete binary tree** data structure. The time complexity for heap sort is very stable.
 
 C++, since C++98 has `make_heap()` function, which is quite useful, and we are going to implement this `make_heap()`, `pop_heap()` function by hand.
 
 #### `make_heap()`
 
-We can define a helper function called `sink()`, it will sink a value to the correct location on the heap.
+We can define a helper function called `sink()`, it sinks a vector node to the correct location on the heap.
 
-Then we sink every value from the vector end to begin, this will create the heap tree.
+Then we sink every value from the vector end to begin, as a result, creating the **maximum/minimum heap** structure.
 
 ```cpp
 void sink(vector<int>& vec, const int n, int i) {
@@ -273,7 +273,7 @@ void pop_heap(vector<int>& vec) {
 
 #### `insert_heap()`
 
-`insert_heap` is like reverse of `pop_heap()`, we append the element to the end of the vector, then bubble up the end vector.
+`insert_heap` is like reverse of `pop_heap()`, we append the element to the end of the vector, then bubble up the end element.
 
 Because the bubble-up process doesn't break the heap validity, we don't need to sink afterwards.
 
