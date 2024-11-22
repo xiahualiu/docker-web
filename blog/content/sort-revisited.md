@@ -301,7 +301,7 @@ However on average it performs better than the merge sort. And the space complex
 
 The following code uses **Hoare partition algorithm**, which can be considered as 2 pointer method, and we ping-pong the pivot element to one of the pointer and increment the other pointer, until these 2 pointers across.
 
-Notice it only works when we pick the first element as the pivot element. If random pivot is given, we need to swap the random pivot element and the first element beforing using this algorithm.
+Notice it only works when we pick the first element as the pivot element. If random pivot is given, we need to swap the random pivot element and the first element before using this algorithm.
 
 ```cpp
 int partition(vector<int>& vec, int low, int high) {
