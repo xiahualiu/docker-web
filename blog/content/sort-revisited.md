@@ -200,7 +200,7 @@ Compared to merge sort and quick sort, it has several advantages:
 
 However it is slower than merge sort in most cases. If all we want is sort an array, merge sort is the winner here.
 
-After the vector is **made into a heap** in a certain order (which takes `O(NlogN)`), read the min/max value will takes `O(1)`.
+After the vector is **made into a heap** in a certain order (which takes `O(N)` and its proof is hard), read the min/max value will takes `O(1)`.
 
 If the min/max element is popped or written over, the mantainence will only take `O(logN)` time.
 
@@ -294,3 +294,41 @@ void insert_heap(vector<int>& vec, int val) {
 ```
 
 ### Quick Sort
+
+Quick sort can be considered as upgraded version of merge sort, although its worst time complexity is `O(N^2)`. It is also based on the **divide and conquer** concept.
+
+However on average it performs better than the merge sort. And the space complexity is `O(N)` for the worst case.
+
+The following code uses **Hoare partition algorithm**, which can be considered as 2 pointer method, and we ping-pong the pivot element to one of the pointer and increment the other pointer, until these 2 pointers across.
+
+Notice it only works when we pick the first element as the pivot element. If random pivot is given, we need to swap the random pivot element and the first element beforing using this algorithm.
+
+```cpp
+int partition(vector<int>& vec, int low, int high) {
+    auto pivot = vec[low];
+    auto i = low - 1;
+    auto j = high + 1;
+    while (true) {
+        do {
+            i++;
+        } while (vec[i] < pivot);
+        do {
+            j--;
+        } while (vec[j] > pivot);
+        if (i >= j) {
+            return j;
+        }
+        swap(vec[i], vec[j]);
+    }
+}
+
+void quick_sort(vector<int>& vec, int low, int high) {
+    if (high <= low) {
+        return;
+    } else {
+        auto mid = partition(vec, low, high);
+        quick_sort(vec, low, mid - 1);
+        quick_sort(vec, mid + 1, high);
+    }
+}
+```
