@@ -9,8 +9,6 @@ draft = false
 	keywords = "C++"
 +++
 
-# RVO and Move Constructor Pitfalls in C++
-
 ## The Surprising Case
 
 ```cpp
