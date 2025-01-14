@@ -9,8 +9,6 @@ draft = false
 	keywords = "C++"
 +++
 
-# Static Initialization Order Fiasco (SIOF) and Its Solution
-
 ## What is SIOF?
 The Static Initialization Order Fiasco (SIOF) is a common C++ issue that occurs when initialization order of static objects across different translation units is undefined. As explained in the C++ standard:
 
