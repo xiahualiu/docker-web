@@ -192,6 +192,10 @@ table inet filter {
         type filter hook input priority filter; policy drop;
         # SSH port.
         tcp dport <ssh_port> accept
+	# DHCPv6 port & icmpv6
+	udp dport 546 accept
+	ip protocol icmp accept
+	ip6 nexthdr icmpv6 accept
         # Allow established and related packets.
         ct state vmap { established : accept, related : accept, invalid : drop }
         # Allow loopback.
