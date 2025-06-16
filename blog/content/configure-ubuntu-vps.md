@@ -104,10 +104,10 @@ vim ~/.ssh/authorized_keys # Paste public key
 sudo chmod 400 ~/.ssh/authorized_keys
 ```
 
-### Configure `sshd_config`
+### Configure `ssh` Server
 
 ```bash
-sudo vim /etc/ssh/sshd_config
+sudo systemctl edit ssh.service
 ```
 
 * Listen on un-conventional SSH port (instead of 22).
@@ -124,12 +124,23 @@ PasswordAuthentication no
 
 Because Ubuntu 22.10 and later uses [socket-based activation](https://discourse.ubuntu.com/t/sshd-now-uses-socket-based-activation-ubuntu-22-10-and-later/30189).
 
-You need to edit the `ssh.socket` trigger to change the `ListenPort` and `ListenAddress` settings:
+```bash
+sudo systemctl edit ssh.socket
+```
+
+Insert the following lines **ABOVE** the comment lines.
+
+```
+[Socket]
+ListenStream=
+ListenStream=<new-port>
+```
+
+To the override configuration file. Then,
 
 ```bash
-sudo vim /usr/lib/systemd/system/ssh.socket
 sudo systemctl daemon-reload
-sudo systemctl restart ssh.socket
+sudo systemctl restart ssh.socket ssh.serivce
 ```
 
 ### Update SSH client configuration
